@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện dịch Unit 4 - Quan hệ Mỹ - Trung</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Lora', serif; }
+        mark {
+            background-color: transparent;
+            color: #4f46e5;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            padding: 0 2px;
+        }
+        /* Custom scrollbar for better UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect } = React;
+
+        const TRANSLATION_DATA = [
+            {
+                id: 1,
+                original: "The US and China are considered the world’s two top economies, and thus they <mark>shoulder special responsibility</mark> in establishing global prosperity, stability, and peace. America’s relations with China have witnessed <mark>ups and downs</mark> throughout its history. Since Richard Nixon’s historic China trip in 1972, the two states’ relationship has <mark>oscillated</mark> between <mark>engagement and containment</mark>. However, there has been a deep economic <mark>interdependence</mark> between them.",
+                chatgpt: "Hoa Kỳ và Trung Quốc được xem là hai nền kinh tế hàng đầu thế giới, vì vậy họ gánh vác trách nhiệm đặc biệt trong việc thúc đẩy sự thịnh vượng, ổn định và hòa bình toàn cầu. Quan hệ của Mỹ với Trung Quốc đã trải qua nhiều thăng trầm trong suốt lịch sử. Kể từ chuyến thăm Trung Quốc mang tính lịch sử của Richard Nixon vào năm 1972, mối quan hệ giữa hai quốc gia đã dao động giữa sự hợp tác và chính sách kiềm chế. Tuy nhiên, giữa họ vẫn tồn tại sự phụ thuộc kinh tế sâu sắc lẫn nhau.",
+                keywords: [
+                    { word: "shoulder special responsibility", definition: "To accept or take on a major obligation or duty." },
+                    { word: "ups and downs", definition: "A mixture of good and bad things that happen in a situation or relationship." },
+                    { word: "oscillated", definition: "To move back and forth between different feelings, opinions, or states." },
+                    { word: "engagement and containment", definition: "Diplomatic strategies of involvement versus restricting power/influence." },
+                    { word: "interdependence", definition: "The state of being mutually reliant on each other." }
+                ]
+            },
+            {
+                id: 2,
+                original: "Recent <mark>trade friction</mark> between these two countries has <mark>overshadowed</mark> their relations, which could be seriously <mark>detrimental</mark> to the world economy, and some analysts consider the current trade-war <mark>escalation</mark> as the signal of a new “cold war.” However, current Sino-US relations are completely different from US-Soviet relations during the Cold War. China will not repeat the mistakes of the Soviet Union, which is why it has included “open to the world” policies and <mark>inclusiveness</mark> in its foreign policy.",
+                chatgpt: "Những căng thẳng thương mại gần đây giữa hai quốc gia này đã làm lu mờ mối quan hệ song phương của họ, điều này có thể gây tổn hại nghiêm trọng đến nền kinh tế thế giới. Một số nhà phân tích thậm chí còn xem sự leo thang của cuộc chiến thương mại hiện nay là dấu hiệu của một “Chiến tranh Lạnh” mới. Tuy nhiên, quan hệ Trung – Mỹ hiện nay hoàn toàn khác với quan hệ Mỹ – Liên Xô trong thời kỳ Chiến tranh Lạnh. Trung Quốc sẽ không lặp lại những sai lầm của Liên Xô, vì vậy nước này đã đưa các chính sách “mở cửa với thế giới” và tinh thần bao dung vào chính sách đối ngoại của mình.",
+                keywords: [
+                    { word: "trade friction", definition: "Disagreements or conflict between nations regarding trade policies or tariffs." },
+                    { word: "overshadowed", definition: "To appear much more prominent or important than something else, often in a negative way." },
+                    { word: "detrimental", definition: "Tending to cause harm; damaging." },
+                    { word: "escalation", definition: "A rapid increase in the intensity or seriousness of a conflict." },
+                    { word: "inclusiveness", definition: "The quality of including all sections of society or different viewpoints." }
+                ]
+            },
+            {
+                id: 3,
+                original: "Today the US and China have lots of <mark>interwoven interests</mark> in the fields of economy and politics. Pursuing <mark>aggressive</mark> policies would be <mark>futile</mark> and prevent both sides from acting in the spirit of openness, and establishing <mark>amicable</mark> diplomatic ties.",
+                chatgpt: "Ngày nay, Hoa Kỳ và Trung Quốc có rất nhiều lợi ích đan xen trong các lĩnh vực kinh tế và chính trị. Việc theo đuổi các chính sách mang tính đối đầu hoặc hiếu chiến sẽ không mang lại kết quả, đồng thời cản trở cả hai bên hành động theo tinh thần cởi mở và thiết lập các mối quan hệ ngoại giao hữu nghị.",
+                keywords: [
+                    { word: "interwoven interests", definition: "Situations where the benefits of different parties are closely connected or mixed together." },
+                    { word: "aggressive", definition: "Ready or likely to attack or confront; pursuing one's aims and interests forcefully." },
+                    { word: "futile", definition: "Incapable of producing any useful result; pointless." },
+                    { word: "amicable", definition: "Characterized by friendliness and absence of discord." }
+                ]
+            },
+            {
+                id: 4,
+                original: "According to the recent <mark>White Paper</mark> released by China regarding trade and economic frictions with the US, <mark>bilateral trade</mark> between the two states reached US$583.7 billion in 2017. China is also considered the “fastest-growing export market in the US; it is also the largest source of imports.” Between 2007 and 2017, the total trade volume between China and the US increased significantly, from $24.94 billion to $75.05 billion. Further, China held $1.18 trillion in US <mark>Treasury bonds</mark> as of May this year. Therefore, the two countries are <mark>heavily reliant</mark> on each other.",
+                chatgpt: "Theo Sách Trắng gần đây do Trung Quốc công bố về các căng thẳng thương mại và kinh tế với Hoa Kỳ, kim ngạch thương mại song phương giữa hai quốc gia đã đạt 583,7 tỷ USD vào năm 2017. Trung Quốc cũng được xem là “thị trường xuất khẩu tăng trưởng nhanh nhất của Hoa Kỳ; đồng thời cũng là nguồn nhập khẩu lớn nhất.” Trong giai đoạn từ năm 2007 đến năm 2017, tổng khối lượng thương mại giữa Trung Quốc và Hoa Kỳ đã tăng đáng kể, từ 24,94 tỷ USD lên 75,05 tỷ USD. Ngoài ra, tính đến tháng 5 năm nay, Trung Quốc nắm giữ 1,18 nghìn tỷ USD trái phiếu Kho bạc Hoa Kỳ. Vì vậy, hai quốc gia này phụ thuộc rất lớn vào nhau.",
+                keywords: [
+                    { word: "White Paper", definition: "An authoritative report or guide that informs readers concisely about a complex issue." },
+                    { word: "bilateral trade", definition: "The exchange of goods and services between two specific countries." },
+                    { word: "Treasury bonds", definition: "Fixed-interest government debt securities with a maturity of more than 10 years." },
+                    { word: "heavily reliant", definition: "Depending greatly on someone or something for support or survival." }
+                ]
+            },
+            {
+                id: 5,
+                original: "Chinese authorities oppose the trade war <mark>waged</mark> by US President Donald Trump, since they are <mark>cognizant</mark> of the fact that there will be no winner, and it could <mark>make a dent</mark> in the global economy. On September 19, Premier Li Keqiang at the World Economic Forum in Tianjin highlighted China’s support for globalization and international <mark>norms and precepts</mark>, and condemned <mark>unilateralism</mark>. He emphasized China’s compliance with “basic principles of multilateralism and free trade.”",
+                chatgpt: "Các nhà chức trách Trung Quốc phản đối cuộc chiến thương mại do Tổng thống Mỹ Donald Trump phát động, vì họ nhận thức rõ rằng sẽ không có bên nào chiến thắng và điều này có thể gây tổn hại đến nền kinh tế toàn cầu. Vào ngày 19 tháng 9, Thủ tướng Lý Khắc Cường tại Diễn đàn Kinh tế Thế giới ở Thiên Tân đã nhấn mạnh sự ủng hộ của Trung Quốc đối với toàn cầu hóa cũng như các chuẩn mực và nguyên tắc quốc tế, đồng thời lên án chủ nghĩa đơn phương. Ông cũng nhấn mạnh việc Trung Quốc tuân thủ “những nguyên tắc cơ bản của chủ nghĩa đa phương và thương mại tự do.”",
+                keywords: [
+                    { word: "waged", definition: "To carry on (a war or campaign)." },
+                    { word: "cognizant", definition: "Having knowledge or being aware of something." },
+                    { word: "make a dent", definition: "To have a noticeable but usually small effect on something (often negative in this context)." },
+                    { word: "norms and precepts", definition: "Established standards of behavior and general rules intended to regulate behavior." },
+                    { word: "unilateralism", definition: "The process of acting, reaching a decision, or espousing a principle unilaterally." }
+                ]
+            },
+            {
+                id: 6,
+                original: "China <mark>aspires</mark> to have a role in the development of the world and the growth of the global economy. Typical examples can be found in President Xi Jinping’s <mark>Belt and Road Initiative</mark> and the <mark>Asian Infrastructure Investment Bank (AIIB)</mark>, which <mark>underline</mark> China’s policies of connectivity and global development. Mutual respect, cooperation, <mark>shared destiny</mark>, inclusiveness and multilateralism have <mark>reverberated</mark> through the speeches of Chinese leaders in international forums.",
+                chatgpt: "Trung Quốc mong muốn đóng vai trò trong sự phát triển của thế giới và sự tăng trưởng của nền kinh tế toàn cầu. Những ví dụ điển hình có thể thấy trong Sáng kiến Vành đai và Con đường của Chủ tịch Tập Cận Bình và Ngân hàng Đầu tư Cơ sở hạ tầng châu Á (AIIB), những sáng kiến nhấn mạnh các chính sách kết nối và phát triển toàn cầu của Trung Quốc. Sự tôn trọng lẫn nhau, hợp tác, vận mệnh chung, tính bao trùm và chủ nghĩa đa phương thường xuyên được nhấn mạnh trong các bài phát biểu của các nhà lãnh đạo Trung Quốc tại các diễn đàn quốc tế.",
+                keywords: [
+                    { word: "aspires", definition: "Direct one's hopes or ambitions toward achieving something." },
+                    { word: "Belt and Road Initiative", definition: "A global infrastructure development strategy adopted by the Chinese government." },
+                    { word: "AIIB", definition: "Asian Infrastructure Investment Bank; a multilateral development bank that aims to support infrastructure building in the Asia-Pacific region." },
+                    { word: "underline", definition: "To emphasize or show that something is important or true." },
+                    { word: "shared destiny", definition: "A concept emphasizing that the future of different nations or people are interlinked." },
+                    { word: "reverberated", definition: "To have a loud or repeated effect; to be repeated many times as an echo." }
+                ]
+            },
+            {
+                id: 7,
+                original: "However, Trump is <mark>reluctant to reciprocate</mark> China’s goodwill, and repeatedly accuses China of <mark>meddling</mark> in US domestic affairs and the economy, taking it a step further to <mark>disdain</mark> international organizations and treaties. His persistence in <mark>poisoning the atmosphere</mark> of negotiation with China could <mark>jeopardize</mark> the normalization of Sino-US relations and even lead to the <mark>collapse</mark> of their cooperation.",
+                chatgpt: "Tuy nhiên, Tổng thống Trump tỏ ra không sẵn lòng đáp lại thiện chí của Trung Quốc và liên tục cáo buộc Trung Quốc can thiệp vào các vấn đề nội bộ cũng như nền kinh tế của Hoa Kỳ, thậm chí còn thể hiện thái độ coi thường các tổ chức và hiệp ước quốc tế. Việc ông kiên quyết làm xấu bầu không khí đàm phán với Trung Quốc có thể gây nguy hại cho quá trình bình thường hóa quan hệ Trung – Mỹ và thậm chí dẫn đến sự sụp đổ của sự hợp tác giữa hai nước.",
+                keywords: [
+                    { word: "reluctant to reciprocate", definition: "Unwilling to give or feel something in return for what has been given." },
+                    { word: "meddling", definition: "Interfering in something that is not one's concern." },
+                    { word: "disdain", definition: "The feeling that someone or something is unworthy of one's consideration or respect." },
+                    { word: "poisoning the atmosphere", definition: "To create a negative, hostile, or suspicious environment." },
+                    { word: "jeopardize", definition: "To put someone or something into a situation in which there is a danger of loss, harm, or failure." },
+                    { word: "collapse", definition: "A sudden failure or breakdown of an institution or system." }
+                ]
+            },
+            {
+                id: 8,
+                original: "The US and China could <mark>defuse</mark> their trade conflicts by <mark>resorting to</mark> international organizations such as the World Trade Organization and seeking the opinion of their allies with respect to their concerns. A true friendship cannot be achieved unless both sides seek to <mark>manage their differences</mark> and identify the potential areas of cooperation.",
+                chatgpt: "Hoa Kỳ và Trung Quốc có thể giảm bớt các xung đột thương mại bằng cách sử dụng các tổ chức quốc tế như Tổ chức Thương mại Thế giới và tham khảo ý kiến của các đồng minh liên quan đến những mối quan ngại của mình. Một tình hữu nghị thực sự chỉ có thể đạt được khi cả hai bên cùng tìm cách quản lý những khác biệt và xác định các lĩnh vực hợp tác tiềm năng.",
+                keywords: [
+                    { word: "defuse", definition: "To reduce the danger or tension in a difficult situation." },
+                    { word: "resorting to", definition: "The act of turning to a person or thing for help, especially as a last option." },
+                    { word: "manage their differences", definition: "To handle or control disagreements effectively to avoid escalation." }
+                ]
+            },
+            {
+                id: 9,
+                original: "A trade war cannot help the <mark>entrenchment</mark> of trust and constructive cooperation in US-China relations. The <mark>trajectory</mark> of their relationship will very much depend on the stability of the global economy, so it is crucial for both countries to <mark>mitigate strategic rivalry</mark> and expand mutual respect. Gone are the days of unilateralism, and those states pursuing such tendencies are <mark>doomed to be isolated</mark> in a globalized economy.",
+                chatgpt: "Một cuộc chiến thương mại không thể giúp củng cố lòng tin và sự hợp tác mang tính xây dựng trong quan hệ Mỹ – Trung. Quỹ đạo phát triển của mối quan hệ này sẽ phụ thuộc rất nhiều vào sự ổn định của nền kinh tế toàn cầu, vì vậy điều quan trọng là cả hai quốc gia cần giảm bớt sự cạnh tranh chiến lược và mở rộng sự tôn trọng lẫn nhau. Thời đại của chủ nghĩa đơn phương đã qua, và những quốc gia theo đuổi xu hướng này sẽ bị cô lập trong một nền kinh tế toàn cầu hóa.",
+                keywords: [
+                    { word: "entrenchment", definition: "The process of establishing a habit, belief, or attitude so firmly that it is difficult to change." },
+                    { word: "trajectory", definition: "The path followed by a developing process or series of events." },
+                    { word: "mitigate strategic rivalry", definition: "To make the intense competition between states for influence less severe." },
+                    { word: "doomed to be isolated", definition: "Likely or certain to be separated from others; having no choice but to be alone." }
+                ]
+            }
+        ];
+
+        function App() {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [studentTranslations, setStudentTranslations] = useState(() => {
+                const saved = localStorage.getItem('student_translations');
+                return saved ? JSON.parse(saved) : Object.fromEntries(TRANSLATION_DATA.map(item => [item.id, item.chatgpt]));
+            });
+            const [vocabularyNotes, setVocabularyNotes] = useState(() => {
+                const saved = localStorage.getItem('vocab_notes');
+                return saved ? JSON.parse(saved) : {};
+            });
+            const [isSaving, setIsSaving] = useState(false);
+            const [showSuccess, setShowSuccess] = useState(false);
+
+            const currentPara = TRANSLATION_DATA[currentIndex];
+            const currentStudentTranslation = studentTranslations[currentPara.id];
+
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, [currentIndex]);
+
+            const handleTranslationChange = (e) => {
+                setStudentTranslations(prev => ({ ...prev, [currentPara.id]: e.target.value }));
+            };
+
+            const handleNoteChange = (word, value) => {
+                setVocabularyNotes(prev => ({ ...prev, [`${currentPara.id}-${word}`]: value }));
+            };
+
+            const saveProgress = () => {
+                setIsSaving(true);
+                localStorage.setItem('student_translations', JSON.stringify(studentTranslations));
+                localStorage.setItem('vocab_notes', JSON.stringify(vocabularyNotes));
+                setTimeout(() => {
+                    setIsSaving(false);
+                    setShowSuccess(true);
+                    setTimeout(() => setShowSuccess(false), 2000);
+                }, 600);
+            };
+
+            const downloadAsWord = () => {
+                const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><style>body { font-family: 'Times New Roman', serif; line-height: 1.5; padding: 20px; } h1 { text-align: center; border-bottom: 2px solid #334155; } .section { margin-bottom: 30px; page-break-inside: avoid; } .label { font-weight: bold; color: #475569; } .vocab-table { width: 100%; border-collapse: collapse; margin-top: 10px; } .vocab-table th, .vocab-table td { border: 1px solid #cbd5e1; padding: 8px; font-size: 10pt; }</style></head><body><h1>BÀI TẬP LUYỆN DỊCH - UNIT 4</h1>`;
+                let body = "";
+                TRANSLATION_DATA.forEach((item, index) => {
+                    body += `<div class="section"><h3>ĐOẠN ${index + 1}</h3><p><span class="label">[Gốc]:</span><br/>${item.original.replace(/<mark>/g, '<b>').replace(/<\/mark>/g, '</b>')}</p><p><span class="label">[Bản dịch]:</span><br/>${studentTranslations[item.id]}</p><p><span class="label">[Ghi chú thuật ngữ]:</span></p><table class="vocab-table"><thead><tr style="background-color: #f1f5f9;"><th>Thuật ngữ</th><th>Ghi chú</th></tr></thead><tbody>${item.keywords.map(kw => `<tr><td><b>${kw.word}</b></td><td>${vocabularyNotes[`${item.id}-${kw.word}`] || ''}</td></tr>`).join('')}</tbody></table><hr/></div>`;
+                });
+                const blob = new Blob([header + body + "</body></html>"], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `BaiTapDich_Unit4_KetQua.doc`;
+                link.click();
+            };
+
+            return (
+                <div className="min-h-screen p-4 sm:p-8 max-w-4xl mx-auto pb-32">
+                    <header className="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm mb-6 border border-slate-200 sticky top-4 z-40 backdrop-blur-md bg-white/90">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-indigo-600 p-2 rounded-lg text-white shadow-indigo-200 shadow-lg"><i data-lucide="edit-3"></i></div>
+                            <div>
+                                <h1 className="font-bold text-lg leading-none">Luyện dịch Unit 4</h1>
+                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Lưu trữ tự động</span>
+                            </div>
+                        </div>
+                        <div className="flex gap-2">
+                            <button onClick={saveProgress} className={`px-4 py-2 rounded-lg text-xs font-bold border flex items-center gap-2 transition-all ${showSuccess ? 'bg-green-500 text-white border-green-500' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}>
+                                {isSaving ? <span className="flex items-center gap-2"><div className="w-3 h-3 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin"></div> Lưu...</span> : showSuccess ? <span className="flex items-center gap-2"><i data-lucide="check" className="w-3 h-3"></i> Đã lưu</span> : <span className="flex items-center gap-2"><i data-lucide="save" className="w-3 h-3"></i> Lưu lại</span>}
+                            </button>
+                            <button onClick={downloadAsWord} className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg shadow-indigo-100 flex items-center gap-2 hover:bg-indigo-700 transition-all">
+                                <i data-lucide="download" className="w-4 h-4"></i> Xuất file Word
+                            </button>
+                        </div>
+                    </header>
+
+                    <main className="space-y-6">
+                        <section className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                             <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500"></div>
+                             <span className="bg-indigo-600 text-white text-[10px] px-2 py-1 rounded font-black mb-4 inline-block tracking-widest uppercase">Original Text</span>
+                             <p className="text-xl leading-relaxed font-serif text-slate-800" dangerouslySetInnerHTML={{ __html: currentPara.original }} />
+                        </section>
+
+                        <section className="bg-amber-50/50 p-4 rounded-xl italic text-slate-600 text-sm border-l-4 border-amber-300">
+                            <div className="flex items-center gap-2 mb-1 not-italic font-bold text-amber-700 text-[10px] uppercase">
+                                <i data-lucide="sparkles" className="w-3 h-3"></i> Gợi ý tham khảo
+                            </div>
+                            {currentPara.chatgpt}
+                        </section>
+
+                        <div className="bg-white rounded-2xl shadow-xl border-2 border-indigo-100 overflow-hidden transition-all focus-within:border-indigo-400">
+                            <div className="bg-indigo-50/50 px-4 py-2 border-b border-indigo-100 flex justify-between items-center">
+                                <span className="text-[10px] font-black text-indigo-400 uppercase tracking-wider">Bản dịch của bạn</span>
+                                <span className="text-[10px] text-slate-400 font-medium italic">Edit freely</span>
+                            </div>
+                            <textarea value={currentStudentTranslation} onChange={handleTranslationChange} className="w-full h-72 p-6 text-xl font-serif outline-none resize-none leading-relaxed text-slate-800" placeholder="Type your translation here..." />
+                        </div>
+
+                        {/* Vocabulary Notes Section - Updated UI */}
+                        <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div className="bg-slate-900 px-5 py-3 flex items-center justify-between">
+                                <h3 className="font-bold text-white text-xs flex items-center gap-2 uppercase tracking-widest">
+                                    <i data-lucide="book-open" className="text-emerald-400 w-4 h-4"></i> Thuật ngữ trọng tâm
+                                </h3>
+                                <span className="text-[9px] text-slate-500 uppercase font-bold">Vocabulary Glossary</span>
+                            </div>
+                            <div className="divide-y divide-slate-100">
+                                {currentPara.keywords.map((kw, i) => (
+                                    <div key={i} className="p-4 sm:grid sm:grid-cols-12 gap-6 items-start hover:bg-slate-50/50 transition-colors">
+                                        <div className="sm:col-span-5 mb-3 sm:mb-0">
+                                            <div className="font-extrabold text-indigo-700 text-base leading-tight">{kw.word}</div>
+                                            <div className="text-[11px] text-slate-500 mt-1 leading-relaxed italic">{kw.definition}</div>
+                                        </div>
+                                        <div className="sm:col-span-7">
+                                            <input 
+                                                type="text"
+                                                value={vocabularyNotes[`${currentPara.id}-${kw.word}`] || ''}
+                                                onChange={(e) => handleNoteChange(kw.word, e.target.value)}
+                                                placeholder="Nghĩa/Ghi chú của bạn..."
+                                                className="w-full bg-slate-100 border border-slate-200 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all placeholder:text-slate-400"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    </main>
+
+                    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-8 z-50 border border-slate-800">
+                        <button disabled={currentIndex === 0} onClick={() => { setCurrentIndex(currentIndex - 1); window.scrollTo(0, 0); }} className={`transition-colors p-2 rounded-full ${currentIndex === 0 ? 'text-slate-700' : 'hover:bg-slate-800 text-white'}`}><i data-lucide="chevron-left"></i></button>
+                        <div className="flex flex-col items-center">
+                            <span className="font-black text-sm tabular-nums tracking-tighter">ĐOẠN {currentIndex + 1} / {TRANSLATION_DATA.length}</span>
+                            <div className="flex gap-1 mt-1">
+                                {TRANSLATION_DATA.map((_, idx) => <div key={idx} className={`h-1 rounded-full transition-all ${idx === currentIndex ? 'bg-indigo-400 w-4' : 'bg-slate-700 w-1'}`} />)}
+                            </div>
+                        </div>
+                        <button disabled={currentIndex === TRANSLATION_DATA.length - 1} onClick={() => { setCurrentIndex(currentIndex + 1); window.scrollTo(0, 0); }} className={`transition-colors p-2 rounded-full ${currentIndex === TRANSLATION_DATA.length - 1 ? 'text-slate-700' : 'hover:bg-slate-800 text-white'}`}><i data-lucide="chevron-right"></i></button>
+                    </nav>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+        window.addEventListener('load', () => { if (window.lucide) window.lucide.createIcons(); });
+    </script>
+</body>
+</html>
